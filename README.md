@@ -56,13 +56,29 @@ The demo identity is a reviewer label, not authentication or role-based access c
 
 ## Verification and submission status
 
-Seven automated tests pass on Node v24.22.1, covering invoice correction, exact-revision approval, blocked duplicate handling, export idempotence, session isolation, persistence, rejected invalid/cross-origin writes, and unavailable optional inference. Syntax checks pass for the backend, workflow and browser client.
+Nine automated tests pass on Node v24.19.0, including HTTPS proxy origin checks and covering invoice correction, exact-revision approval, blocked duplicate handling, export idempotence, session isolation, persistence, rejected invalid/cross-origin writes, and unavailable optional inference. Syntax checks pass for the backend, workflow and browser client.
 
 The application has **not yet been verified on Vultr or submitted**. Public HTTPS deployment, a genuine recorded demonstration and the final entry receipt remain outstanding. A successful local test is not deployment evidence.
 
 ## Deployment
 
 Node 22 or later and one process are sufficient. No package installation, Docker, GPU or paid/model API is required. Keep the default deterministic mode. The included service template expects an authorized Linux host, an unprivileged service account, `/opt/dockcheck`, and a verified Node executable path. Run the app with `HOST=127.0.0.1 PORT=8191 COOKIE_SECURE=1` behind a real HTTPS reverse proxy that preserves Host. Keep the backend port private. The single-process JSON store is not suitable for multi-writer deployment.
+
+`COOKIE_SECURE=1` is required behind HTTPS: it both marks the session cookie Secure and requires the browser's complete HTTPS origin, including any non-default port, to match the preserved Host header. Leave it unset for an ordinary local HTTP demonstration. Do not disable origin checks to work around a proxy error.
+
+Inside an already configured, valid HTTPS Nginx server block, use:
+
+```nginx
+location / {
+    proxy_pass http://127.0.0.1:8191;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+Preserve the original Host, including a non-default public port; rewriting it to `127.0.0.1:8191` will correctly block browser writes. The backend does not trust forwarded headers to relax origin checks. Redirect public HTTP to HTTPS at the proxy. Use a real certificate, and never expose the backend port directly. Ensure `/opt/dockcheck/data` exists and is writable by the unprivileged service account before starting the included unit. Confirm `/usr/bin/node` is the actual Node path. Keep `DOCKCHECK_LOCAL_AI` unset.
+
+Before claiming a deployment, verify in the actual HTTPS browser that creating, resolving, approving and downloading a synthetic case work, that the cookie has Secure/HttpOnly/SameSite=Strict, and that the same session survives a process restart. The automated proxy tests simulate headers over loopback; they do not prove a live certificate, Vultr VM or browser TLS deployment.
 
 ## License
 

@@ -32,7 +32,8 @@ export function createApp({dataDir=path.join(root,'data'),allowAI=false}={}){
       if(!['GET','POST'].includes(req.method))return send(405,{error:'Method not allowed.'});
       if(req.method==='POST'){
         if(!req.headers['content-type']?.startsWith('application/json'))return send(415,{error:'Use application/json.'});
-        if(req.headers.origin&&new URL(req.headers.origin).host!==req.headers.host)return send(403,{error:'Cross-origin writes are not allowed.'});
+        const publicOrigin=new URL(`${process.env.COOKIE_SECURE==='1'?'https':'http'}://${req.headers.host}`).origin;
+        if(req.headers.origin&&req.headers.origin!==publicOrigin)return send(403,{error:'Cross-origin writes are not allowed.'});
         if(req.headers['sec-fetch-site']==='cross-site')return send(403,{error:'Cross-site writes are not allowed.'});
       }
       let sid=req.headers.cookie?.match(/(?:^|;\s*)dockcheck=([a-f0-9]{48})(?:;|$)/)?.[1];
