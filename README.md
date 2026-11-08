@@ -6,13 +6,15 @@ An exception-first procurement workbench. Dockcheck compares an invoice with the
 
 ## Run
 
-Requires official Node.js22 or later. No package installation, API key, account, database service or container is required.
+Requires official Node.js 22 or later. No package installation, API key, account, database service or container is required.
 
 ```sh
 npm start
 ```
 
-Open http://127.0.0.1:8191. ```sh
+Open http://127.0.0.1:8191.
+
+```sh
 npm test
 npm run check
 ```
@@ -21,7 +23,7 @@ All names, invoices, orders, receipts and bank suffixes are synthetic. Use a syn
 
 ## Try the consequential paths
 
-1. Create **Partial delivery**: 100 units billed, only80 received. The $2,400 invoice fails the receipt check. Approval and export are blocked.
+1. Create **Partial delivery**: 100 units billed, only 80 received. The $2,400 invoice fails the receipt check. Approval and export are blocked.
 2. Correct to the received quantity. The current invoice becomes $1,920; original intake evidence stays in the run. The trace records the $480 reduction and repeated checks.
 3. Enter a reviewer name and a specific review note. Approval binds to a SHA-256 fingerprint of the exact current invoice.
 4. Export and download the evidence. Retrying export returns the same packet identifier and does not append a second ledger entry.
@@ -50,7 +52,7 @@ The backend owns reference data, checks, task state, approval, replay protection
 
 The challenge explicitly permits rule-based workflows. This version does not claim autonomous reasoning, OCR, ERP integrations, verified monetary savings or live payment execution. A disabled optional adapter can ask an existing local `qwen3.6:latest` model for a reviewer explanation. It has no approval or export authority. This adapter has not been inference-tested for Dockcheck and must not be shown as a working feature in the submission. No model endpoint is contacted in the default configuration. Do not enable it without an authorized, verified local endpoint.
 
-The demo identity is a reviewer label, not authentication or role-based access control. Sessions isolate synthetic demonstrations, not real tenant data. The server caps each session at40 runs and retains at most100 sessions. Production work requires real identity/roles, durable multi-process storage, ERP import, approval separation and operations monitoring.
+The demo identity is a reviewer label, not authentication or role-based access control. Sessions isolate synthetic demonstrations, not real tenant data. The server caps each session at 40 runs and retains at most 100 sessions. Production work requires real identity/roles, durable multi-process storage, ERP import, approval separation and operations monitoring.
 
 ## Verification and submission status
 
