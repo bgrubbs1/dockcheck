@@ -1,0 +1,10 @@
+{
+  "name": "dockcheck",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Synthetic procurement exception workflow with verifiable execution and approval gates",
+  "scripts": {"start": "node server.mjs", "test": "node --test test/*.test.mjs", "check": "node --check server.mjs && node --check workflow.mjs && node --check public/app.js"},
+  "engines": {"node": ">=22"},
+  "license": "MIT"
+}

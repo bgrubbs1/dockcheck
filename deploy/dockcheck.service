@@ -1,0 +1,24 @@
+[Unit]
+Description=Dockcheck synthetic workflow demonstration
+After=network.target
+
+[Service]
+Type=simple
+User=dockcheck
+Group=dockcheck
+WorkingDirectory=/opt/dockcheck
+ExecStart=/usr/bin/node /opt/dockcheck/server.mjs
+Environment=HOST=127.0.0.1
+Environment=PORT=8191
+Environment=COOKIE_SECURE=1
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/dockcheck/data
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

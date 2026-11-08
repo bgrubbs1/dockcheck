@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153c39">
+  <meta name="description" content="Dockcheck reconciles synthetic invoices, purchase orders, and receipts with reviewable decisions and human approval.">
+  <title>Dockcheck · Invoice operations</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a href="#workbench" class="skip-link">Skip to review workbench</a>
+  <header class="topbar">
+    <a href="/" class="brand" aria-label="Dockcheck home"><span class="brand-mark" aria-hidden="true">D<span>✓</span></span><span>Dockcheck<span class="brand-sub">RECEIPT TO RESOLUTION</span></span></a>
+    <nav aria-label="Workspace"><span class="nav-current">Invoice operations</span><span class="nav-context">Northline demo workspace</span></nav>
+    <span class="synthetic"><span aria-hidden="true"></span>Synthetic data</span>
+  </header>
+  <div class="workspace">
+    <aside class="sidebar" aria-label="Cases">
+      <div class="sidebar-top"><span class="eyebrow">OPERATIONS DESK</span><span class="live-dot" title="Local application" aria-label="Local application"></span></div>
+      <h2>Case queue <span id="case-count">0</span></h2>
+      <p class="sidebar-copy">Resolve the exception.<br>Keep the evidence.</p>
+      <div id="case-list" class="case-list" aria-label="Existing cases"><p class="muted">Loading cases…</p></div>
+      <section class="intake" aria-labelledby="intake-title">
+        <div class="section-kicker"><span class="eyebrow">TRY A WORKFLOW</span><span class="small-tag">DEMO</span></div>
+        <h3 id="intake-title">Start a synthetic case</h3>
+        <button class="scenario" data-scenario="clean"><span class="scenario-icon" aria-hidden="true">✓</span><span>Clean invoice<small>All three records agree</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+        <button class="scenario" data-scenario="quantity"><span class="scenario-icon" aria-hidden="true">≠</span><span>Quantity mismatch<small>Billed 100 · received 80</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+        <button class="scenario" data-scenario="bank"><span class="scenario-icon" aria-hidden="true">!</span><span>Bank detail change<small>Protect the vendor record</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+        <button class="scenario" data-scenario="duplicate"><span class="scenario-icon" aria-hidden="true">▣</span><span>Duplicate invoice<small>Stop a second posting</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+      </section>
+      <div class="sidebar-footer"><span class="shield" aria-hidden="true">◈</span><p>Nothing leaves this demo.<br><strong>No payments or messages.</strong></p></div>
+    </aside>
+    <main id="workbench" tabindex="-1">
+      <section class="page-heading"><div><div class="eyebrow">PROCUREMENT / THREE-WAY MATCH</div><h1>Every invoice. Accounted for.</h1><p>From incoming record to approved evidence, one visible workflow.</p></div><button class="button secondary compact" id="refresh"><span aria-hidden="true">↻</span> Refresh</button></section>
+      <div id="feedback" role="status" aria-live="polite" hidden></div>
+      <section class="metrics" aria-label="Workspace totals"><article><span>Cases processed</span><strong id="metric-runs">—</strong><small>Trace captured for every case</small></article><article><span>Held for review</span><strong id="metric-held">—</strong><small>Exceptions must be resolved</small></article><article><span>Evidence exported</span><strong id="metric-exported">—</strong><small>Approved synthetic value</small></article></section>
+      <div id="detail"><section class="empty-state"><div class="empty-symbol" aria-hidden="true">◎</div><div class="eyebrow">A CLEAR PATH FROM RECORD TO DECISION</div><h2>Your review desk is ready.</h2><p>Choose a case on the left or start with a quantity mismatch to see the complete exception workflow.</p><button class="button primary" data-scenario="quantity">Review a quantity mismatch <span aria-hidden="true">→</span></button></section></div>
+      <footer class="main-footer"><span>Dockcheck</span><p>Rules make the decision. People approve it. Every transition leaves a trace.</p><span id="engine-label">Deterministic workflow</span></footer>
+    </main>
+  </div>
+</body>
+</html>
